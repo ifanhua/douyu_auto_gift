@@ -29,17 +29,17 @@ def get_glow():
     global Bags
     logger.info("------背包检查开始------")
     try:
-        # 查询获取到的钻粉荧光棒
+        # 查询获取到的浪漫花束
         assert glow_res.status_code == 200
         assert glow_res.json()['msg'] == "success"
         # 防止没有道具导致程序报错
         if glow_res.json()['data']['list']:
             global Own
             try:
-                Own = jsonpath(glow_res.json(), '$..list[?(@.id == 2358)].count')[0]
-                logger.info("当前拥有钻粉荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
+                Own = jsonpath(glow_res.json(), '$..list[?(@.id == 952)].count')[0]
+                logger.info("当前拥有浪漫花束%s个,给你喜欢的主播进行赠送吧" % Own)
             except TypeError as e:
-                logger.error("背包当中没有钻粉荧光棒,但拥有其他礼物:%s" % e)
+                logger.error("背包当中没有浪漫花束,但拥有其他礼物:%s" % e)
             Bags = 1
             logger.info("------背包检查结束------")
         else:
@@ -49,7 +49,7 @@ def get_glow():
         if glow_res.json()['msg'] == '请登录':
             logger.error("请更新COOKIE")
         else:
-            logger.error("领取钻粉荧光棒时发生错误")
+            logger.error("领取浪漫花束时发生错误")
         logger.info("------背包检查结束------")
     return glow_res
 
@@ -63,11 +63,11 @@ def get_own():
 
 def glow_donate(num=1, room_id=10055):
     """
-    :param num: 向该房间赠送钻粉荧光棒的数量
+    :param num: 向该房间赠送浪漫花束的数量
     :param room_id: 房间号
     """
     donate_url = "/japi/prop/donate/mainsite/v1"
-    DATA = "propId=2358&propCount=%s&roomId=%s&bizExt={\"yzxq\":{}}" % (num, room_id)
+    DATA = "propId=952&propCount=%s&roomId=%s&bizExt={\"yzxq\":{}}" % (num, room_id)
     # 背包中含有道具才会进行赠送，否则会报错
     if Bags:
         donate_res = dyreq.request(method="post", path=donate_url, data=DATA)
@@ -75,13 +75,13 @@ def glow_donate(num=1, room_id=10055):
         try:
             assert donate_res.status_code == 200
             assert donate_res.json()['msg'] == "success"
-            # 计算剩余钻粉荧光棒
+            # 计算剩余浪漫花束
             now_left = int(Own) - int(num)
             Own = now_left
-            logger.info("向房间号%s赠送钻粉荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
+            logger.info("向房间号%s赠送浪漫花束%s个成功,当前剩余%s个" % (room_id, num, now_left))
         except AssertionError:
             if donate_res.json()['msg'] == "用户没有足够的道具":
-                logger.warning("向房间号%s赠送钻粉荧光棒失败,当前背包中钻粉荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
+                logger.warning("向房间号%s赠送浪漫花束失败,当前背包中浪漫花束数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
             else:
                 logger.warning(donate_res.json()['msg'])
 
