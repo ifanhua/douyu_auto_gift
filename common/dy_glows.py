@@ -116,7 +116,7 @@ def go_room():
     a = driver.find_element("xpath", "/html/body/section/header/div/div/div[3]/div[7]/div")
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
-        logger.info("如提示背包没有荧光棒请延长等待时间")
+        logger.info("如提示背包没有浪漫花束请延长等待时间")
     else:
         logger.info("没有携带cookie进入页面,请重新检查cookie")
     logger.info("再次刷新页面")
