@@ -7,7 +7,7 @@ from common.get_secrets import get_secrets
 class DYHTTPRequests:
 
     def __init__(self):
-        cookie_str = get_secrets('COOKIES')
+        cookie_str = get_secrets('COOKIES1')
         self.cookie = cookie_str.decode("latin1")
         
         self.session = session()
