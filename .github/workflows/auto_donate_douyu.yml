@@ -24,6 +24,6 @@ jobs:
       - name: 'Working'
         env:
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
-          COOKIES1: ${{ secrets.COOKIES1 }}
+          COOKIES: ${{ secrets.COOKIES }}
         run: |
           python main.py
