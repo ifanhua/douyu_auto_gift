@@ -22,7 +22,7 @@ def get_glow():
     :return: 领取结果的基本格式
     """
     # 需要先访问一次直播间才会获得道具
-    logger.info("------正在获取钻粉荧光棒------")
+    logger.info("------正在获取浪漫花束------")
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=10055"
     glow_res = dyreq.request("get", glow_url)
